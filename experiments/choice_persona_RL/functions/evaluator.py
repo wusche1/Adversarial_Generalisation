@@ -21,7 +21,8 @@ class PersonaEvalCallback(TrainerCallback):
     def _evaluate_distribution(self, model, dataset, dist_name):
         model.eval()
         results = {"alice_count": 0, "bob_count": 0, "neither_count": 0,
-                   "alice_correct": 0, "alice_total": 0, "bob_correct": 0, "bob_total": 0}
+                   "alice_correct": 0, "alice_total": 0, "bob_correct": 0, "bob_total": 0,
+                   "total_correct": 0}
         
         examples = list(dataset)
         with torch.no_grad():
@@ -39,23 +40,28 @@ class PersonaEvalCallback(TrainerCallback):
                     input_len = inputs.input_ids[j].shape[0]
                     completion = self.tokenizer.decode(outputs[j][input_len:], skip_special_tokens=True)
                     
+                    is_correct = extract_answer(completion) == ex["correct_answer"]
+                    if is_correct:
+                        results["total_correct"] += 1
+                    
                     has_alice = "Alice" in completion
                     has_bob = "Bob" in completion
                     if has_alice and not has_bob:
                         results["alice_count"] += 1
                         results["alice_total"] += 1
-                        if extract_answer(completion) == ex["correct_answer"]:
+                        if is_correct:
                             results["alice_correct"] += 1
                     elif has_bob and not has_alice:
                         results["bob_count"] += 1
                         results["bob_total"] += 1
-                        if extract_answer(completion) == ex["correct_answer"]:
+                        if is_correct:
                             results["bob_correct"] += 1
                     else:
                         results["neither_count"] += 1
         
         total = len(examples)
         metrics = {
+            f"eval/{dist_name}_accuracy": results["total_correct"] / total,
             f"eval/{dist_name}_alice_rate": results["alice_count"] / total,
             f"eval/{dist_name}_bob_rate": results["bob_count"] / total,
             f"eval/{dist_name}_neither_rate": results["neither_count"] / total,

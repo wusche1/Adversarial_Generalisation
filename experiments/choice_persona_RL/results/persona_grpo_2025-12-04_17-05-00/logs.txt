@@ -51,3 +51,4 @@ INFO:research_scaffold.config_tools:Saved config to: results/persona_grpo_2025-1
 INFO:functions.train_grpo:Starting GRPO training for run: persona_grpo_2025-12-04_17-05-00
 INFO:accelerate.utils.modeling:We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
 INFO:functions.train_grpo:Loaded 2251 training samples and 100 eval samples
+INFO:functions.train_grpo:Training completed

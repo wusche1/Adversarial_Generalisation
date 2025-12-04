@@ -1,0 +1,17 @@
+folder: "configs"
+common_root: "base.yaml"
+common_patch:
+  name: "zoom_run"
+  wandb_project: "adversarial_generalisation"
+  function_kwargs:
+    training_config:
+      max_steps: 50
+      eval_steps: 1
+      save_steps: 50
+      logging_steps: 1
+      eval_on_start: true
+    saving:
+      hf: false
+
+experiments:
+  - config: {}

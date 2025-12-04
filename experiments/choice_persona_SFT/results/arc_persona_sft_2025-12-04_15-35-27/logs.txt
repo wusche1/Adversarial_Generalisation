@@ -46,3 +46,4 @@ INFO:research_scaffold.config_tools:Saved config to: results/arc_persona_sft_202
 INFO:functions.train_sft:Starting SFT training for run: arc_persona_sft_2025-12-04_15-35-27
 INFO:accelerate.utils.modeling:We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
 INFO:functions.train_sft:Loaded 2251 training samples and 100 eval samples
+INFO:functions.train_sft:Training completed

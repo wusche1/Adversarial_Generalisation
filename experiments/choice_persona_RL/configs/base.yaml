@@ -1,0 +1,52 @@
+name: "persona_grpo"
+time_stamp_name: true
+function_name: "train_grpo"
+save_config_path: "results/RUN_NAME/config.yaml"
+log_file_path: "results/RUN_NAME/logs.txt"
+wandb_project: "adversarial_generalisation"
+wandb_group: "persona_grpo"
+
+function_kwargs:
+  model_config:
+    pretrained_model_name_or_path: "wuschelschulz/gemma-3-1b-persona-ab-sft"
+    device_map: "auto"
+    attn_implementation: "eager"
+  
+  dataset_config:
+    n_eval: 100
+  
+  lora_config:
+    r: 16
+    lora_alpha: 32
+    lora_dropout: 0.0
+    bias: "none"
+    task_type: "CAUSAL_LM"
+    target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]
+  
+  training_config:
+    per_device_train_batch_size: 32
+    num_generations: 8
+    gradient_accumulation_steps: 1
+    learning_rate: 5.0e-6
+    lr_scheduler_type: "constant"
+    max_steps: 500
+    logging_steps: 1
+    save_steps: 100
+    save_total_limit: 3
+    save_only_model: true
+    eval_strategy: "steps"
+    eval_steps: 50
+    eval_on_start: true
+    per_device_eval_batch_size: 32
+    max_prompt_length: 1024
+    max_completion_length: 64
+    bf16: true
+    gradient_checkpointing: true
+    report_to: "wandb"
+    temperature: 1.
+  
+  output_dir: "results/RUN_NAME"
+  run_name: "RUN_NAME"
+  
+  saving:
+    hf: false

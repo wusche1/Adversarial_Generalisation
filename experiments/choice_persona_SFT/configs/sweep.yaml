@@ -1,0 +1,26 @@
+method: bayes
+metric:
+  name: eval/loss
+  goal: minimize
+
+parameters:
+  training_config.learning_rate:
+    distribution: log_uniform_values
+    min: 0.000001
+    max: 0.001
+  training_config.warmup_ratio:
+    distribution: uniform
+    min: 0.01
+    max: 0.5
+
+base_config_paths: 
+  - configs/base.yaml
+  - 
+    save_config_path: "results/SWEEP_NAME/RUN_NAME/config.yaml"
+    log_file_path: "results/SWEEP_NAME/RUN_NAME/logs.txt"
+    function_kwargs:
+      output_dir: "results/SWEEP_NAME/RUN_NAME"
+      run_name: "RUN_NAME"
+
+sweep_name: lr_warmup_sweep
+project: adversarial_generalisation

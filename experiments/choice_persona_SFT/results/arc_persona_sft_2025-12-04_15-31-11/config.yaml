@@ -1,0 +1,51 @@
+function_args: []
+function_kwargs:
+  dataset_config:
+    distributions:
+    - A
+    - B
+    n_eval: 100
+    personas:
+    - Alice
+    - Bob
+  lora_config:
+    bias: none
+    lora_alpha: 64
+    lora_dropout: 0.05
+    r: 32
+    target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    task_type: CAUSAL_LM
+  model_config:
+    device_map: auto
+    pretrained_model_name_or_path: unsloth/gemma-3-1b-it
+  output_dir: results/arc_persona_sft_2025-12-04_15-31-11
+  run_name: arc_persona_sft_2025-12-04_15-31-11
+  saving:
+    hf: false
+  training_config:
+    eval_steps: 50
+    eval_strategy: steps
+    gradient_accumulation_steps: 1
+    learning_rate: 2.0e-05
+    logging_steps: 10
+    lr_scheduler_type: cosine
+    max_length: 1024
+    max_steps: 500
+    num_train_epochs: 1
+    per_device_eval_batch_size: 32
+    per_device_train_batch_size: 16
+    report_to: wandb
+    save_only_model: true
+    warmup_ratio: 0.1
+function_name: train_sft
+log_file_path: results/arc_persona_sft_2025-12-04_15-31-11/logs.txt
+name: arc_persona_sft_2025-12-04_15-31-11
+save_config_path: results/arc_persona_sft_2025-12-04_15-31-11/config.yaml
+wandb_entity: null
+wandb_group: arc_persona_sft
+wandb_project: adversarial_generalisation
+wandb_tags: null

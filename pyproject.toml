@@ -1,5 +1,5 @@
 [project]
-name = "ml-research-template"
+name = "adversarial_generalisation"
 version = "0.1.0"
 description = "Template for ML research experiments"
 readme = "README.md"
@@ -9,6 +9,12 @@ dependencies = [
     "pytest>=8.0.0",
     "wandb>=0.18.0",
     "research-scaffold",
+    "datasets>=4.4.1",
+    "transformers>=4.57.3",
+    "trl>=0.25.1",
+    "peft>=0.18.0",
+    "beartype>=0.22.8",
+    "skypilot-nightly[runpod]>=1.0.0.dev20251203",
 ]
 
 [build-system]
